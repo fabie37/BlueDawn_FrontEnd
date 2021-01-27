@@ -1,5 +1,6 @@
 import './App.css';
 import { useEffect, useState } from 'react';
+import Title from './components/Title/Title';
 const { ENDPOINT, SEND_PURCHASES } = require('./socket/constants');
 const io = require('socket.io-client');
 
@@ -18,7 +19,7 @@ const App = () => {
 
     return (
         <div className='App'>
-            <h1>{purchases ? purchases.data[1]._id : ''}</h1>
+            <Title purchases={purchases ? purchases : null}></Title>
         </div>
     );
 };
