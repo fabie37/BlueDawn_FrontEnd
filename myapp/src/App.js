@@ -1,6 +1,6 @@
 import './App.css';
 import { useEffect, useState } from 'react';
-import Title from './components/Title/Title';
+import Container from './components/Container/Container';
 const { ENDPOINT, SEND_PURCHASES } = require('./socket/constants');
 const io = require('socket.io-client');
 
@@ -19,7 +19,7 @@ const App = () => {
 
     return (
         <div className='App'>
-            <Title purchases={purchases ? purchases : null}></Title>
+            <Container purchases={purchases ? purchases : null}></Container>
         </div>
     );
 };
