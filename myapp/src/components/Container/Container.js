@@ -9,6 +9,7 @@ const Container = ({ purchases }) => {
     let last_week_purchases;
     let week;
 
+    console.log(purchases);
     if (purchases) {
         week = get_week_range();
         this_week_purchases = get_purchases_in_date_range(
