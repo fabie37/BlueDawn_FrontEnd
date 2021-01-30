@@ -15,6 +15,12 @@ const GraphContainer = ({ this_week_purchases, week, last_week_purchases, lastwe
     var days_in_last_week = getDaysArray(lastweek.startDate, lastweek.endDate);
     var last_data = week_to_data(last_week_purchases, days_in_last_week);
 
+    
+    var this_max = Math.max.apply(Math, this_data.map(function(date) { return date.value; }))
+    var last_max = Math.max.apply(Math, last_data.map(function(date) { return date.value; }))
+    var max = Math.round(Math.max(this_max, last_max));
+    
+
     useEffect(() => {
         timerClear.current = setTimeout(() => {
             setData(prevState => (prevState^1))
@@ -27,7 +33,9 @@ const GraphContainer = ({ this_week_purchases, week, last_week_purchases, lastwe
                 <LineGraph
                     title={data == 1 ? 'This Week' : 'Last Week'}
                     data={data == 1 ? this_data : last_data}
-                    color="#fffffff">
+                    color="#fffffff"
+                    max={max}>
+                    
                 </LineGraph>
             </div>
         );

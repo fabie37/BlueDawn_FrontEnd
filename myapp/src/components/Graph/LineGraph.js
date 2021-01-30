@@ -33,7 +33,8 @@ export class LineGraph extends Component {
             yAxes: [
               {
                 ticks: {
-                  min: 0
+                  min: 0,
+                  suggestedMax: this.props.max
                 }
               }
             ]
