@@ -1,65 +1,65 @@
 .title {
-    grid-column: 2 / 4;
-    grid-row: 3 / 6;
-    background-color: white;
-    border-radius: 2em;
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-    display: grid;
-    padding: 3em;
-    grid-template-rows: 1.5fr 1fr 1fr;
-    grid-template-columns: auto 1fr 1fr;
-    grid-template-areas:
-        'main ticker . '
-        'secondary . .'
-        '. . date';
+	grid-column: 2 / 4;
+	grid-row: 2 / 5;
+	background-color: white;
+	border-radius: 2vw;
+	box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+	display: grid;
+	padding: 3vw;
+	grid-template-rows: 1.5fr 1fr 1fr;
+	grid-template-columns: auto 1fr 1fr;
+	grid-template-areas:
+		"main ticker . "
+		"secondary . ."
+		". . date";
 }
 
 .increase {
-    color: #bb0000;
+	color: #bb0000;
 }
 
 .decrease {
-    color: #1fbb00;
+	color: #1fbb00;
 }
 
 .same {
-    color: black;
+	color: black;
 }
 
 .main {
-    grid-area: main;
-    justify-self: left;
-    align-self: center;
-    font-weight: 400;
-    font-size: 3em;
-    margin: 0;
-    padding: 0;
+	grid-area: main;
+	justify-self: left;
+	align-self: center;
+	font-weight: 400;
+	font-size: 3vw;
+	margin: 0;
+	padding: 0;
 }
 
 .ticker {
-    grid-area: ticker;
-    justify-self: left;
-    align-self: center;
-    font-weight: 400;
-    font-size: 2em;
+	grid-area: ticker;
+	justify-self: left;
+	align-self: center;
+	font-weight: 400;
+	font-size: 2vw;
 
-    padding-left: 1em;
+	padding-left: 1vw;
 }
 
 .secondary {
-    grid-area: secondary;
-    justify-self: left;
-    align-self: center;
-    font-weight: normal;
-    font-size: 1.3em;
-    color: #878787;
+	grid-area: secondary;
+	justify-self: left;
+	align-self: center;
+	font-weight: normal;
+	font-size: 1.3vw;
+	color: #878787;
 }
 
 .date {
-    grid-area: date;
-    justify-self: right;
-    align-self: center;
-    font-weight: normal;
-    font-size: 1.2em;
-    color: #878787;
+	grid-area: date;
+	justify-self: right;
+	align-self: center;
+	font-weight: normal;
+	font-size: 1.2vw;
+	color: #878787;
 }

@@ -47,6 +47,15 @@ const format_month = (month) => {
     return monthString;
 };
 
+const getDaysArray = function(start, end) {
+    console.log(start)
+    for(var arr=[],dt=new Date(start); dt<=end; dt.setDate(dt.getDate()+1)){
+        arr.push(new Date(dt));
+    }
+    return arr;
+};
+
+exports.getDaysArray = getDaysArray;
 exports.date_to_daymonth = date_to_daymonth;
 exports.get_purchases_in_date_range = get_purchases_in_date_range;
 exports.get_week_range = get_week_range;
