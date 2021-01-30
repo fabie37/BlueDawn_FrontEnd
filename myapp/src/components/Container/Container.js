@@ -31,7 +31,10 @@ const Container = ({ purchases }) => {
                     last_week_purchases={last_week_purchases}
                     week={week}
                 ></Title>
-                <GraphContainer week={week} this_week_purchases={this_week_purchases}></GraphContainer>
+                <GraphContainer week={week} 
+                this_week_purchases={this_week_purchases}
+                last_week_purchases={last_week_purchases}
+                lastweek={lastweek}></GraphContainer>
             </div>
         );
     } else {

@@ -9,8 +9,10 @@ export class LineGraph extends Component {
     }
 
     componentDidUpdate() {
+        
         this.myChart.data.labels = this.props.data.map(d => d.time);
         this.myChart.data.datasets[0].data = this.props.data.map(d => d.value);
+        this.myChart.data.datasets[0].label = this.props.title;
         this.myChart.update();
       }
 

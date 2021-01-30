@@ -1,60 +1,38 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import './Graph.css';
 import LineGraph from './LineGraph';
+import { week_to_data } from '../../utils/graph_stuff';
 import { getDaysArray } from '../../utils/dates'
 
-const GraphContainer = ({ this_week_purchases, week }) => {
+const GraphContainer = ({ this_week_purchases, week, last_week_purchases, lastweek }) => {
+    var [data, setData] = useState(1);
 
-    let days_in_week = getDaysArray(week.startDate, week.endDate);
-    let week_dir = {};
-    for (let i=0; i < days_in_week.length; i++) {
-        week_dir[days_in_week[i].getDate()] = 0;
-    }
+    const timerClear = useRef();
+
+    var days_in_week = getDaysArray(week.startDate, week.endDate);
+    var this_data = week_to_data(this_week_purchases, days_in_week);
+
+    var days_in_last_week = getDaysArray(lastweek.startDate, lastweek.endDate);
+    var last_data = week_to_data(last_week_purchases, days_in_last_week);
+
+    useEffect(() => {
+        timerClear.current = setTimeout(() => {
+            setData(prevState => (prevState^1))
+        }, 10000);
+        return () => clearTimeout(timerClear);
+    }, [data])
+
+        return (
+            <div className='graph'>
+                <LineGraph
+                    title={data == 1 ? 'This Week' : 'Last Week'}
+                    data={data == 1 ? this_data : last_data}
+                    color="#fffffff">
+                </LineGraph>
+            </div>
+        );
+
     
-    let sorted_data = this_week_purchases.sort(function(a,b) { return new Date(a.date) - new Date(b.date)});
-    sorted_data.forEach(purchase => {
-        let date = new Date(purchase.date).getDate();
-        week_dir[date] += purchase.total/100
-    });
-    let cumsum = 0;
-    for (let i=0; i < days_in_week.length; i++) {
-        let this_val = week_dir[days_in_week[i].getDate()];
-        week_dir[days_in_week[i].getDate()] += cumsum;
-        cumsum += this_val;
-    }
-    /*let sorted_data = this_week_purchases.sort(function(a,b) { return new Date(a.date) - new Date(b.date)});
-    let cumsum = 0;
-    console.log(sorted_data);
-    let data = sorted_data.map((purchase) => {
-        
-        let dataset = { value: cumsum, time: purchase.date };
-        return dataset;
-    });
-    */
-   let data = [];
-   for (var time in week_dir) {
-       for (var date of days_in_week) {
-           let temp = new Date(date);
-           temp.setHours(0,0,0,0);
-           if (date.getDate() == time) {
-            data.push({ 'value': week_dir[time], 'time': temp })
-           }
-       }
-        
-   }
-
-    console.log(data);
-
-
-    return (
-        <div className='graph'>
-            <LineGraph
-                title='This Week'
-                data={data}
-                color="#fffffff">
-            </LineGraph>
-        </div>
-    );
 };
 
 export default GraphContainer;
