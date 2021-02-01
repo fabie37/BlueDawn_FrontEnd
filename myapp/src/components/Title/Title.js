@@ -1,43 +1,47 @@
-import React, { useEffect, useState } from 'react';
-import Card from '../Card/Card';
+import React from 'react';
 import './Title.css';
 import { BiCaretUp, BiCaretDown, BiMinus } from 'react-icons/bi';
-import { format_month, date_to_daymonth } from '../../utils/dates';
+import { date_to_daymonth } from '../../utils/dates';
 import {
     get_purchases_total,
     to_currency,
     percentage_change,
 } from '../../utils/totals';
 
-const Title = ({ this_week_purchases, last_week_purchases, week }) => {
+const Title = ({
+    this_time_purchases,
+    last_time_purchases,
+    date_range,
+    timeframe,
+}) => {
     // Managing The Dates
     let start = '';
     let end = '';
 
-    if (week) {
-        start = date_to_daymonth(week['startDate']);
-        end = date_to_daymonth(week['endDate']);
+    if (date_range) {
+        start = date_to_daymonth(date_range['startDate']);
+        end = date_to_daymonth(date_range['endDate']);
     }
 
     // Managing the totals
-    let thisWeekTotal;
-    let lastWeekTotal;
+    let thisTotal;
+    let lastTotal;
 
-    if (this_week_purchases) {
-        thisWeekTotal = get_purchases_total(this_week_purchases);
-        thisWeekTotal = to_currency(thisWeekTotal);
+    if (this_time_purchases) {
+        thisTotal = get_purchases_total(this_time_purchases);
+        thisTotal = to_currency(thisTotal);
     }
 
-    if (last_week_purchases) {
-        lastWeekTotal = get_purchases_total(last_week_purchases);
-        lastWeekTotal = to_currency(lastWeekTotal);
+    if (last_time_purchases) {
+        lastTotal = get_purchases_total(last_time_purchases);
+        lastTotal = to_currency(lastTotal);
     }
 
     // Managing the percent change
     let percentDelta = 0;
 
-    if (thisWeekTotal && lastWeekTotal) {
-        percentDelta = percentage_change(lastWeekTotal, thisWeekTotal);
+    if (thisTotal && lastTotal) {
+        percentDelta = percentage_change(lastTotal, thisTotal);
     }
 
     let symbol;
@@ -55,19 +59,17 @@ const Title = ({ this_week_purchases, last_week_purchases, week }) => {
 
     return (
         <div className='title'>
-            <div className='main'>
-                Total: £{thisWeekTotal ? thisWeekTotal : '0.00'}
-            </div>
+            <div className='main'>Total: £{thisTotal ? thisTotal : '0.00'}</div>
             <div className={class_name}>
                 {symbol}
                 {percentDelta}%
             </div>
             <div className='secondary'>
-                Last Week: £{lastWeekTotal ? lastWeekTotal : '0.00'}
+                Last {timeframe}: £{lastTotal ? lastTotal : '0.00'}
             </div>
 
             <div className='date'>
-                {start} {week ? '-' : ''} {end}
+                {start} {date_range ? '-' : ''} {end}
             </div>
         </div>
     );
