@@ -8,12 +8,6 @@ import {
 } from '../../utils/dates';
 import GraphContainer from '../Graph/GraphContainer';
 import PieContainer from '../Pie/PieContainer';
-import {
-    TransitionGroup,
-    CSSTransition,
-    Transition,
-    SwitchTransition,
-} from 'react-transition-group';
 
 const Container = ({ purchases }) => {
     let this_week_purchases = [];
@@ -24,6 +18,26 @@ const Container = ({ purchases }) => {
     let lastweek = {};
     let month = {};
     let lastmonth = {};
+    
+    const timer = useRef();
+    var [timerIQ, setTimerIQ] = useState(100);
+
+    useEffect(() => {
+        timer.current = setTimeout(() => {
+            console.log(timerIQ)
+            console.log("Dones");
+            document.querySelector('div.slider').scrollBy({
+                top: 100,
+                left: timerIQ,
+                behavior: 'smooth'
+              })
+              setTimerIQ((prev) => {
+                
+                  if (prev == 100) { return -100;} else {return 100;}
+              });
+        }, 5000);
+        return () => clearTimeout(timer);
+    }, [timerIQ])
 
     if (purchases) {
         week = get_week_range();
@@ -55,7 +69,25 @@ const Container = ({ purchases }) => {
 
         console.log(this_month_purchases);
 
+
         return (
+            <div className='slider'>
+                            <div className='container'>
+                <Title
+                    this_time_purchases={this_week_purchases}
+                    last_time_purchases={last_week_purchases}
+                    date_range={week}
+                    timeframe={'Week'}
+                ></Title>
+                <GraphContainer
+                    date_range={week}
+                    last_date_range={lastweek}
+                    timeframe={'Week'}
+                    this_time_purchases={this_week_purchases}
+                    last_time_purchases={last_week_purchases}
+                ></GraphContainer>
+                <PieContainer></PieContainer>
+            </div>
             <div className='container'>
                 <Title
                     this_time_purchases={this_month_purchases}
@@ -71,6 +103,7 @@ const Container = ({ purchases }) => {
                     last_time_purchases={last_month_purchases}
                 ></GraphContainer>
                 <PieContainer></PieContainer>
+            </div>
             </div>
         );
     } else {

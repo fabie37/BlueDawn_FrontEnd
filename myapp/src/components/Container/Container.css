@@ -1,29 +1,46 @@
 .container {
-    background: #f6f6f6;
-    display: grid;
-    grid-template-columns: 0.2fr 0.5fr 1.6fr 0.2fr 1fr 0.2fr;
-    grid-template-rows: 0.7fr 0.5fr 0.5fr 0.5fr 0.5fr 0.5fr 2fr 0.7fr;
-    height: 100vh;
+	background: #f6f6f6;
+	display: grid;
+	grid-template-columns: 0.2fr 0.5fr 1.6fr 0.2fr 1fr 0.2fr;
+	grid-template-rows: 0.7fr 0.5fr 0.5fr 0.5fr 0.5fr 0.5fr 2fr 0.7fr;
+	height: 100vh;
+	width: 100vw;
+}
+
+.slider {
+	display: grid;
+	grid-template-rows: 1fr;
+	grid-auto-flow: column;
+	grid-auto-columns: 100vw;
+	overflow-y: hidden;
+	height: 100vh;
+	overflow-x: scroll;
+	scroll-snap-type: x mandatory;
+}
+
+.slider > .container {
+	scroll-snap-align: start;
+	scroll-snap-stop: always;
 }
 
 .fade-enter {
-    opacity: 0.01;
-    transform: translate(-50px, 0);
+	opacity: 0.01;
+	transform: translate(-50px, 0);
 }
 
 .fade-enter-active {
-    opacity: 1;
-    transform: translate(0, 0);
-    transition: all 300ms;
+	opacity: 1;
+	transform: translate(0, 0);
+	transition: all 300ms;
 }
 
 .fade-exit {
-    opacity: 1;
-    transform: translate(0px, 0);
+	opacity: 1;
+	transform: translate(0px, 0);
 }
 
 .fade-exit-active {
-    opacity: 0.01;
-    transform: translate(50px, 0);
-    transition: all 300ms;
+	opacity: 0.01;
+	transform: translate(50px, 0);
+	transition: all 300ms;
 }
