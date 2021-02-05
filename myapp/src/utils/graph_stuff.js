@@ -1,3 +1,5 @@
+
+
 const range_to_data = (purchases, days_in_range) => {
     let week_dir = {};
     for (let i = 0; i < days_in_range.length; i++) {
@@ -32,4 +34,24 @@ const range_to_data = (purchases, days_in_range) => {
     return data;
 };
 
+const to_pie_format = (purchases) => {
+    var cat_to_total = {};
+    for (var index=0; index<purchases.length; index++) {
+        var purchase = purchases[index];
+        let {category, total} = purchase;
+        if (category in cat_to_total) {
+            cat_to_total[category] += total; 
+        } else {
+            cat_to_total[category] = total;
+        }
+    }
+    let data = {
+        datasets:[{ data: Object.values(cat_to_total) }],
+        labels:Object.keys(cat_to_total)
+    };
+    console.log(data)
+    return data;
+}
+
+exports.to_pie_format = to_pie_format;
 exports.range_to_data = range_to_data;

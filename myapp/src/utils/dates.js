@@ -14,6 +14,30 @@ const get_purchases_in_date_range = (startDate, endDate, purchases) => {
     return inRangePurchases;
 };
 
+const get_year_range = (offset = 0) => {
+    let year = {};
+    let now = new Date();
+    now.setTime(Date.now());
+    now.setFullYear(now.getFullYear() + offset);
+    now.setHours(0, 0, 0, 0);
+
+    let startDate = new Date();
+    startDate.setDate(1);
+    startDate.setMonth(0);
+    startDate.setFullYear(now.getFullYear())
+    startDate.setHours(0, 0, 0, 0);
+
+    let endDate = new Date(now.getFullYear(), 11, 31);
+    endDate.setHours(0, 0, 0, 0);
+
+    year['startDate'] = startDate;
+    year['endDate'] = endDate;
+
+    console.log(year)
+
+    return year;
+};
+
 const get_month_range = (offset = 0) => {
     let month = {};
     let now = new Date();
@@ -90,3 +114,4 @@ exports.get_purchases_in_date_range = get_purchases_in_date_range;
 exports.get_week_range = get_week_range;
 exports.format_month = format_month;
 exports.get_month_range = get_month_range;
+exports.get_year_range = get_year_range;
